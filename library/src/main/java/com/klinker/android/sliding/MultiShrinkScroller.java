@@ -449,6 +449,12 @@ public class MultiShrinkScroller extends FrameLayout {
      */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
+        // If the activity is full screen now, do not intercept all touch event by default,
+        // let the children handle touch event firstly
+        if (getTransparentViewHeight() <= 0){
+            return super.onInterceptTouchEvent(event);
+        }
+
         if (velocityTracker == null) {
             velocityTracker = VelocityTracker.obtain();
         }
